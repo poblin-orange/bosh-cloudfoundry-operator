@@ -21,7 +21,10 @@ revue de configuration
 
 * domaine par bosh
 
-* recursors
+* bosh dns et recursors
+
+## certificats
+* certificats pour les domaines intranet / autosignés
 
 ## docker bosh-cli en bosh release+
 
@@ -85,8 +88,9 @@ vs un polling de l'api bosh pour connaitre l'état des déploiments et des jobs
 ##domains
 
 * shared / private par org
-
+* SSL certificats domains wildcards
 * custom SSL certs
+* split brain dns pour les cf-apps / dns interne
 
 ## admin-ui++ (2)
 
@@ -96,15 +100,27 @@ vs un polling de l'api bosh pour connaitre l'état des déploiments et des jobs
 
 ## maj de rootfs
 
-## splunk / logsearch cloudfoundry operator
+## certificats pour les cf app
+* certificats pour les domaines intranet / autosignés
+
+
+## centralisation des logs cloudfoundry
+
+### splunk
+
+### logsearch cloudfoundry operator
 
 ## diego +++ (3)
 
 ### capacitaire
 
 ### cf ssh+(1)
+* prerequis
+* securisation
+
 
 ### migration DEA Runner => Diego Cell+++ (3)
+* plugin diego pour cf cli
 
 ## Enjeux d'upgrades ++++++ (6)
 
@@ -113,14 +129,21 @@ vs un polling de l'api bosh pour connaitre l'état des déploiments et des jobs
 ### buildpacks
 
 ### rootfs
+* bosh release rootfs pour diego
 
 ###cf cli des utilisateurs (warn / versions)
+* positionner le niveau de cli attendu par cloudfoundry
+* repository de plugin cf cli
+
 
 ## gestions des quotas
 
-## gestion des security groups cloudfoundry (trafic sortant des cf apps)
 
-## cf notifications 
+
+## gestion des security groups cloudfoundry (trafic sortant des cf apps)
+* implémentation ip tables sur le réseau container garden
+
+ 
 
 ## CF Health Management+ (1)
 
@@ -132,6 +155,9 @@ vs un polling de l'api bosh pour connaitre l'état des déploiments et des jobs
 
 Performance: aspects à 
 
+
+
+## cf notifications
 
 # Services
 
