@@ -49,11 +49,11 @@ http://bosh.io/docs/director-certs.html
 
 ## docker bosh-cli en bosh release+
 
- Un compte dédié linux est nécessaire (le contexte courant, user et mdp sont sauvegardés dans le home directory).
+ * Un compte dédié linux est nécessaire (le contexte courant, user et mdp sont sauvegardés dans le home directory).
  Pour faciliter l'acces nominatif à un bosh director, ISAD a développé une docker image comportant la plupart des outils nécessaire à un opérateur
  https://github.com/Orange-OpenSource/orange-cf-bosh-cli
  
- Cette image docker peut être déployée comme une bosh release, et rentrer dans la management courant d'un déploiement.
+ * Cette image docker peut être déployée comme une bosh release, et rentrer dans la management courant d'un déploiement.
  https://github.com/cloudfoundry-community/docker-boshrelease
 
 
@@ -61,10 +61,7 @@ http://bosh.io/docs/director-certs.html
 
 * bosh.io
 
-
-
 * gestion de conf git
-
 
 * submodule git par release
 
@@ -86,7 +83,7 @@ Les stemcells sont développées et maintenues par la communauté Cloudfoundry.
 Elles très régulièrement publiées sur bosh.io http://bosh.io/stemcells
 
 
-##Health Manager+(1)
+##Health Monitor +(1)
 
 * config+(1)
 
@@ -100,6 +97,29 @@ vs un polling de l'api bosh pour connaitre l'état des déploiments et des jobs
 * base postgres
 * blobstore
 * dns powerdns
+
+## tuning bosh
+* nombre de worker (protection du Iaas)
+* time outs du health monitor
+
+## tuning deployment manifest
+* ips range
+les clauses reserved servent à définir l'intervalle d'IPs qui seront utilisées par bosh
+les Ips statiques sont celles qu'on souhaite que bosh affecte de façon permanente à des vms
+Les Ips restantes sont utilisées par bosh pour affecter des IPs a son gré (ie: pour les jobs compilation de release, ou des jobs permanents ne nécessitant pas une IP fixe)
+
+NB: le concept est différent des configuration IPs statiques ou par dhcp. Bosh director utilise l'un ou l'autre des mécanismes selon le CPI
+
+* choix des flavors de vm
+la taille mémoire des vms influe sur la taille de disque nécessaire sur le root disk (ie: il faut un espace swap égal à la taille de la RAM)
+
+* choix du type de stockage. local versus shared
+Si le CPI le permet,il faut priviligier un stockage local pour l'ephemeral disk (cycle de vie lié à celui de la vm, ie jetable)
+Pour les disques persistants, ils doivent pouvoir être réattachés à la volée à une nouvelle vm => stockage shared généralement
+
+* canary
+* max in flight 
+
 
 ##Manques et travaux en cours (coté Cf et anticipation coté ISAD)
 
@@ -136,10 +156,26 @@ TBC: travaux ISAD
 
 * bosh snapshots
 
+### chaos lemur
+s'assurer de la fiabilité d'un déploiement
+* https://github.com/strepsirrhini-army/chaos-lemur
+* https://blog.pivotal.io/pivotal-cloud-foundry/products/chaos-lemur-testing-high-availability-on-pivotal-cloud-foundry
+
+TBC: support openstack, aws et vsphere. cloudstack KO
 
 # CF
 
 ##Role d'un cloudfoundry operator
+
+
+## Installation et upgrade
+
+### génération de manifest
+* outil spiff
+* smoke tests
+* acceptance tests
+* PAT performance acceptance test
+
 
 
 ##domains
@@ -180,8 +216,15 @@ https://github.com/cloudfoundry-incubator/diego-release/releases/tag/v0.1454.0
 * securisation
 
 ### cf routing
-
 TBC: travaux ISAD
+
+## cf metering
+TBC: 
+* https://github.com/cloudfoundry-incubator/cf-abacus
+* 
+
+
+
 
 ### migration DEA Runner => Diego Cell+++ (3)
 * pérenité des dea runner: la compatiblité entre DEA Runner et Diego Cell a été largement assurée. Néanmoins il faut anticiper que l'effort de la communauté cf se fera sur Diego.
@@ -202,8 +245,12 @@ TBC: travaux ISAD
 * upgrade global possible par un cf admin, en CLI
 * prochainement, des bosh releases dédiées et versionnées par buildpack
 
+Les buildpacks portent les middlewares (et les failles associées): apache /nginx/tomcat/node/ruby ...
+
 ### rootfs
 * bosh release rootfs dédiées et versionnées pour diego
+
+Les rootfs amène la vue Os offerte aux cf apps (et les failles associes, ubuntu 14.04)
 
 ###cf cli des utilisateurs (warn / versions)
 * positioner le niveau de cli attendu par cloudfoundry
@@ -227,8 +274,17 @@ TBC: travaux pour automatiser le setting des quotas via un bosh errand
 
 ### CF SPOFs: comment les réduire
 
-Performance: aspects à 
+Elements "uniques"
+* blobstore: externalisable dans un stockage objet API s3. TBC
+* base postgres
 
+Elements réplicables
+* routers
+* nats
+* etcd
+* consul
+* api
+* loggregator traffic controller 
 
 
 ## cf notifications
