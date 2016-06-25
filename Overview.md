@@ -3,6 +3,7 @@
 ##Role d'un bosh opérateur +(1)
 
 
+
 ##inception (terraform, bosh-init et bootstraping CPI)
 * terraform
 * bosh-init
@@ -50,10 +51,10 @@ http://bosh.io/docs/director-certs.html
 ## docker bosh-cli en bosh release+
 
  * Un compte dédié linux est nécessaire (le contexte courant, user et mdp sont sauvegardés dans le home directory).
- Pour faciliter l'acces nominatif à un bosh director, ISAD a développé une docker image comportant la plupart des outils nécessaire à un opérateur
+ Pour faciliter l'acces nominatif à un bosh director, ISAD a développé une docker image comportant la plupart des outils nécessaires à un opérateur
  https://github.com/Orange-OpenSource/orange-cf-bosh-cli
  
- * Cette image docker peut être déployée comme une bosh release, et rentrer dans la management courant d'un déploiement.
+ * Cette image docker peut être déployée comme une bosh release, et rentrer dans le management courant d'un déploiement.
  https://github.com/cloudfoundry-community/docker-boshrelease
 
 
@@ -94,7 +95,7 @@ Elles très régulièrement publiées sur bosh.io http://bosh.io/stemcells
 vs un polling de l'api bosh pour connaitre l'état des déploiments et des jobs
 
 ## Bosh SPOFs
-* base postgres
+* database postgres
 * blobstore
 * dns powerdns
 
@@ -138,7 +139,8 @@ TBC travaux ISAD, produit Anynine
 
 https://blog.anynines.com/how-to-build-a-postgresql-cloud-foundry-service-part-3/
 
-#### bosh-deployer https://github.com/poblin-orange/bosh-deployer
+#### bosh-deployer
+TBC https://github.com/poblin-orange/bosh-deployer
 
 #### bosh director API +(1)
 * reference: l'API est partiellement documentée (éléments stables seulement) http://bosh.io/docs/director-api-v1.html
@@ -147,7 +149,9 @@ https://blog.anynines.com/how-to-build-a-postgresql-cloud-foundry-service-part-3
 
 ###bosh release avec errand
 
-https://github.com/Orange-OpenSource/cloudfoundry-operators-tools-boshrelease
+TBC: https://github.com/Orange-OpenSource/cloudfoundry-operators-tools-boshrelease
+* service autosleep 
+* cachet / cachet monitor
 
 
 ###bosh snapshots / backup
@@ -163,18 +167,22 @@ s'assurer de la fiabilité d'un déploiement
 
 TBC: support openstack, aws et vsphere. cloudstack KO
 
-# CF
+# CloudFoundry
 
-##Role d'un cloudfoundry operator
-
+## Role d'un cloudfoundry operator
+* garantir la maj et l'absence de faille sur le socle cloudfoundry
+* administrer les organisations, les buildpacks et les service brokers
+* garantir l'étanchéité des composants de la plateforme, avec et entre les tenants utilisateurs.
+* gérer le capacitaire global des ressources iaas (ips, stockage, mémoire)
 
 ## Installation et upgrade
 
 ### génération de manifest
 * outil spiff
-* smoke tests
-* acceptance tests
-* PAT performance acceptance test
+
+### smoke tests
+### acceptance tests TBC
+### PAT performance acceptance test TBC
 
 
 
@@ -222,8 +230,6 @@ TBC: travaux ISAD
 TBC: 
 * https://github.com/cloudfoundry-incubator/cf-abacus
 * 
-
-
 
 
 ### migration DEA Runner => Diego Cell+++ (3)
@@ -303,8 +309,8 @@ p-mysql galera cluster
 
 ### stateless
 * limites des cups pour un opérateur cf
-* static-cred broker
-* o-logs
+* static-cred broker https://github.com/Orange-OpenSource/static-creds-broker
+(ex: o-logs, o-smtp)
 
 ### registring de brokers dans le marketplace
 
