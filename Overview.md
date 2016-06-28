@@ -1,5 +1,14 @@
 #Bosh
 
+## Où chercher des réponses sur bosh
+
+ * bosh.io
+    * https://github.com/cloudfoundry/docs-bosh
+ * backlog bosh core https://www.pivotaltracker.com/n/projects/956238 + bosh cpi https://www.pivotaltracker.com/n/projects/1133984
+ * bosh-notes https://github.com/cloudfoundry/bosh-notes
+ * cf-bosh@cloudfoundry.org archives http://cf-bosh.70367.x6.nabble.com/ + old https://groups.google.com/a/cloudfoundry.org/forum/#!topic/bosh-users/ https://groups.google.com/a/cloudfoundry.org/forum/#!topic/bosh-dev
+ * Slack https://cloudfoundry.slack.com/messages/bosh/mentions/ 
+
 ##Role d'un bosh opérateur +(1)
 
 
@@ -29,6 +38,8 @@ revue de configuration
 * domaine par bosh
 
 * bosh dns et recursors
+
+## configuration NTP
 
 ## certificats
 * certificats pour les domaines intranet / autosignés
@@ -64,11 +75,15 @@ http://bosh.io/docs/director-certs.html
 
 ##gestion des manifestes
 
-* bosh.io
+* bosh.io: : affichage des spec files
 
 * gestion de conf git
 
 * submodule git par release
+
+* template de manifest: spiff, spiff++, spruce
+
+* gestion des secrets: bosh properties, air marshal ?
 
 ##Enjeux d'upgrades
 
