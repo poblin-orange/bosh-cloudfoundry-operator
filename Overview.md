@@ -6,6 +6,10 @@
 
 ##inception (terraform, bosh-init et bootstraping CPI)
 * terraform
+https://www.terraform.io/docs/providers/openstack/index.html
+https://www.terraform.io/docs/providers/cloudstack/index.html
+https://www.terraform.io/docs/providers/vcd/index.html
+
 * bosh-init
 
 ##configuration cloudstack CPI++++ (4)
@@ -212,8 +216,16 @@ https://github.com/cloudfoundry-incubator/diego-release/releases/tag/v0.1454.0
 ## centralisation des logs cloudfoundry
 
 ### splunk
-
+* interconnection syslog
+* limites: multitenancy, sso
+ 
 ### logsearch cloudfoundry operator
+
+
+## APM for cf apps
+* new relic Saas
+
+
 
 ## diego +++ (3)
 
@@ -239,7 +251,8 @@ TBC:
 
 ### compatiblilité Docker / RunC
 
-
+* capacité à deployer une image docker en cf app. TBC limites
+* support des Dockerfile ko
 
 
 ## Enjeux d'upgrades ++++++ (6)
@@ -301,7 +314,9 @@ Elements réplicables
 
 
 ### marketplace, scope de visibilité
-* par space / par org
+* par space, broker privés
+* par org
+* publics
 
 ### statefull
 
@@ -313,6 +328,8 @@ p-mysql galera cluster
 (ex: o-logs, o-smtp)
 
 ### registring de brokers dans le marketplace
+* http ou https entre cloudfoundry et le broker
+* ip ou dns
 
 ### purge
 
